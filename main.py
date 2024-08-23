@@ -27,6 +27,7 @@ from PyQt5.QtWidgets import (
     QGraphicsProxyWidget,
     QGraphicsRectItem,
     QGraphicsScene,
+    QGraphicsTextItem,
     QGraphicsView,
     QHBoxLayout,
     QLabel,
@@ -927,7 +928,7 @@ class ImageAnnotator(QMainWindow):
 
     def toggle_annotation_visibility(self):
         for item in self.scene.items():
-            if isinstance(item, (QGraphicsRectItem, QGraphicsEllipseItem)):
+            if isinstance(item, (QGraphicsRectItem, QGraphicsEllipseItem, QGraphicsProxyWidget, QGraphicsTextItem)):
                 item.setVisible(not item.isVisible())
 
         if self.visibility_button.text() == "Hide Annotations":
