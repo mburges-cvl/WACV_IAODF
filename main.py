@@ -991,6 +991,10 @@ class ImageAnnotator(QMainWindow):
         if not save_dir:
             print("No directory selected")
             return
+        
+        filtered_boxes = {}
+        for image, boxes in self.bounding_boxes.items():
+            filtered_boxes[image] = [box for box in boxes if box["class"] == 1 and box["type"] == "box"]
 
         annotation_file = os.path.join(save_dir, "annotations.json")
         with open(annotation_file, "w") as f:
