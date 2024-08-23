@@ -249,7 +249,7 @@ class ImageAnnotator(QMainWindow):
         self.initUI()
 
         predictor = Predictor()
-        checkpoint_path = "weights\checkpoint.pth"
+        checkpoint_path = "weights\checkpoint_chai.pth"
         predictor.load_model(checkpoint_path)
         self.prediction_worker = None
 
@@ -524,7 +524,7 @@ class ImageAnnotator(QMainWindow):
                 f
                 for f in os.listdir(self.image_directory)
                 if f.lower().endswith(
-                    (".png", ".jpg", ".jpeg", ".tiff", ".tif", ".bmp")
+                    (".png", ".jpg", ".jpeg", ".tiff", ".tif")
                 )
             ]
             self.image_list.clear()

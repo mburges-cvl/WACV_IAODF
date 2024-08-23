@@ -58,7 +58,11 @@ Image Annotator is a Python-based tool designed for interactive annotation of ob
 - Supports the following file formats: .jpg, .jpeg, .png, .tif, .tiff
 - Supports three different modalities: Historical (Grayscale), RGB, and SAR
 
-## Weights
+## Weights & Sample Data
+
+    ```
+    git lfs pull
+    ```
 
 ## Limitations
 
