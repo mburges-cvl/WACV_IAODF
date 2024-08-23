@@ -524,9 +524,7 @@ class ImageAnnotator(QMainWindow):
             image_files = [
                 f
                 for f in os.listdir(self.image_directory)
-                if f.lower().endswith(
-                    (".png", ".jpg", ".jpeg", ".tiff", ".tif")
-                )
+                if f.lower().endswith((".png", ".jpg", ".jpeg", ".tiff", ".tif"))
             ]
             self.image_list.clear()
             self.image_list.addItems(image_files)
@@ -716,11 +714,20 @@ class ImageAnnotator(QMainWindow):
 
     def reject_prediction(self, rect_item):
         box = rect_item.box_data
+        print(f"Accepting prediction: {box}")  # Debug print
         if self.current_image in self.predicted_boxes:
             # Remove the box from predicted_boxes
             self.predicted_boxes[self.current_image] = [
                 b for b in self.predicted_boxes[self.current_image] if b != box
             ]
+
+            # Add the box to bounding_boxes
+            if self.current_image not in self.bounding_boxes:
+                self.bounding_boxes[self.current_image] = []
+            new_box = box.copy()
+            new_box["type"] = "box"
+            new_box["class"] = 0  # Set the class to "not-Crater"
+            self.bounding_boxes[self.current_image].append(new_box)
 
             # Redraw annotations
             self.draw_annotations()
@@ -923,12 +930,21 @@ class ImageAnnotator(QMainWindow):
                 )
             )
             self.bounding_boxes[self.current_image] = []
+            self.predicted_boxes.pop(self.current_image, None)
             self.redoStack.clear()
             self.draw_annotations()
 
     def toggle_annotation_visibility(self):
         for item in self.scene.items():
-            if isinstance(item, (QGraphicsRectItem, QGraphicsEllipseItem, QGraphicsProxyWidget, QGraphicsTextItem)):
+            if isinstance(
+                item,
+                (
+                    QGraphicsRectItem,
+                    QGraphicsEllipseItem,
+                    QGraphicsProxyWidget,
+                    QGraphicsTextItem,
+                ),
+            ):
                 item.setVisible(not item.isVisible())
 
         if self.visibility_button.text() == "Hide Annotations":
