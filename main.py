@@ -281,7 +281,7 @@ class ImageAnnotator(QMainWindow):
         left_layout = QVBoxLayout()
         left_panel.setLayout(left_layout)
 
-        load_button = QPushButton("Load Images")
+        load_button = QPushButton("Select image folder")
         load_button.clicked.connect(self.load_images)
         left_layout.addWidget(load_button)
 
