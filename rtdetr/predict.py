@@ -356,6 +356,9 @@ class Predictor:
             # total_attn_mask_norm[total_attn_mask_norm == 0] = 1
             # total_attn_mask /= total_attn_mask_norm
 
+            if len(cls_list) == 0:
+                cls_list = ["Crater"]
+
             selected_classes = torch.tensor(
                 [cls == "Crater" for cls in cls_list]
             ).cuda()
