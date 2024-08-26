@@ -861,7 +861,7 @@ class ImageAnnotator(QMainWindow):
             }
 
             # Check overlap with existing normal boxes
-            overlap_threshold = 0.95
+            overlap_threshold = 0.01
             should_add = True
 
             for normal_box in self.bounding_boxes.get(self.current_image, []):
